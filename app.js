@@ -8,6 +8,10 @@ angular.module('scheduleApp', ['firebase', 'ngRoute'])
       templateUrl: 'partials/home.html',
       controller: 'mainController'
     });
+    $routeProvider.when('/all', {
+      templateUrl: 'partials/all.html',
+      controller: 'mainController'
+    });
     $routeProvider.otherwise({
       redirectTo: '/login'
     });
@@ -62,8 +66,11 @@ angular.module('scheduleApp', ['firebase', 'ngRoute'])
       slot.booked = true;
       slot.allocation = loginService.user();
     }
-    $scope.show = function (slot) {
-      return true;
+    $scope.show = function (slot, slots) {
+      var bookingFound = _.find(_.flatMap(slots), function (o) {
+        return o.booked && o.allocation == 'tshepo'
+      });
+      return (bookingFound != undefined && slot.name === bookingFound.name) || ((bookingFound == undefined) && !slot.booked);
     }
 
     $scope.undo = function (slot) {
@@ -75,6 +82,12 @@ angular.module('scheduleApp', ['firebase', 'ngRoute'])
       $location.path('/home');
     }
 
+    $scope.myBookings = function () {
+      $location.path('/home');
+    }
+    $scope.allBookings = function () {
+      $location.path('/all');
+    }
     $scope.reset = function () {
 
       fb.$set({

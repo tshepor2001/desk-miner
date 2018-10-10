@@ -30,6 +30,7 @@
     "@material/typography": "^0.39.0",
     "angular": "^1.7.5",
     "angular-route": "^1.7.5",
+    "lodash": "^4.17.11",
     "material-components-web": "^0.40.0"
   }
 }

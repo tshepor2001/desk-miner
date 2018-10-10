@@ -6,10 +6,10 @@
         </div>
         <div class="mdc-drawer__content">
             <nav class="mdc-list">
-                <a class="mdc-list-item mdc-list-item--activated" aria-selected="false">
+                <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" ng-click="myBookings()">
                     book a desk
                 </a>
-                <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" ng-click="allBookings()">
+                <a class="mdc-list-item mdc-list-item--activated" aria-selected="true">
                     all bookings
                 </a>
                 <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" href="#" ng-click="reset()">
@@ -26,7 +26,7 @@
                     <div class="mdc-component mdc-component__cards">
                         <h1 class="mdc-component__h1">{{day.name}}</h1>
                         <div ng-repeat="slot in day.slots">
-                            <div class="mdc-component__section" ng-show="show(slot, day.slots)">
+                            <div class="mdc-component__section">
                                 <div class="mdc-component__containers__primary">
                                     <div class="mdc-card">
                                         <section class="mdc-card__header">
@@ -40,10 +40,7 @@
                                             {{slot.allocation}}</section>
                                         <section ng-if="!slot.booked" class="mdc-card__supporting-text">Available
                                             for booking</section>
-                                        <section ng-show="!slot.booked" class="mdc-card__actions"><button type="button"
-                                                class="mdc-button mdc-button--raised mdc--theme-primary" ng-click="book(slot)">book</button></section>
-                                        <section ng-show="slot.booked" class="mdc-card__actions"><button type="button"
-                                                class="mdc-button mdc-button--raised mdc--theme-primary" ng-click="undo(slot)">reset</button></section>
+                                        
                                     </div>
                                 </div>
                             </div>
