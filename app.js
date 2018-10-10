@@ -1,6 +1,34 @@
-angular.module('scheduleApp', ['firebase'])
+angular.module('scheduleApp', ['firebase', 'ngRoute'])
+  .config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/login', {
+      templateUrl: 'partials/login.html',
+      controller: 'mainController'
+    });
+    $routeProvider.when('/home', {
+      templateUrl: 'partials/home.html',
+      controller: 'mainController'
+    });
+    $routeProvider.otherwise({
+      redirectTo: '/login'
+    });
 
-  .controller('mainController', function ($scope, $firebase) {
+  }])
+  .factory('loginService', function () {
+    var user = {};
+
+    var service = function () {
+
+    }
+    service.login = function (_user) {
+      user = _user;
+    }
+
+    service.user = function () {
+      return user.name;
+    }
+    return service;
+  })
+  .controller('mainController', ['$scope', '$firebase', 'loginService', '$location', function ($scope, $firebase, loginService, $location) {
 
     // get # of real time users
     var listRef = new Firebase("https://deskerse.firebaseio.com/presence");
@@ -31,22 +59,22 @@ angular.module('scheduleApp', ['firebase'])
     syncObject.$bindTo($scope, 'days');
     // function to set the default data
     $scope.book = function (slot) {
-        slot.booked = true;
-        console.log($scope.person);
+      slot.booked = true;
+      slot.allocation = loginService.user();
     }
-    $scope.show = function(slot) {
-        return !slot.booked;
+    $scope.show = function (slot) {
+      return true;
     }
 
     $scope.undo = function (slot) {
-        slot.booked = false;
-        slot.allocation = '';
+      slot.booked = false;
+      slot.allocation = '';
     }
     $scope.login = function (user) {
-        console.log(user);
-        $scope.person = user;
-        console.log($scope.person);
+      loginService.login(user);
+      $location.path('/home');
     }
+
     $scope.reset = function () {
 
       fb.$set({
@@ -58,275 +86,275 @@ angular.module('scheduleApp', ['firebase'])
                 A: {
                   name: 'desk 1',
                   booked: false,
-                  
+
                 },
                 B: {
                   name: 'desk 2',
                   booked: false,
-                  
+
                 },
                 C: {
                   name: 'desk 3',
                   booked: false,
-                  
+
                 },
                 D: {
                   name: 'desk 4',
                   booked: false,
-                  
+
                 },
                 E: {
                   name: 'desk 5',
                   booked: false,
-                  
+
                 },
                 F: {
                   name: 'desk 6',
                   booked: false,
-                  
+
                 },
                 G: {
                   name: 'desk 7',
                   booked: false,
-                  
+
                 },
                 H: {
                   name: 'desk 8',
                   booked: false,
-                  
+
                 },
                 I: {
                   name: 'desk 9',
                   booked: false,
-                  
+
                 },
                 J: {
                   name: 'desk 10',
                   booked: false,
-                  
+
                 },
               }
             },
             B: {
-                name: 'Tuesday',
-                slots: {
-                  A: {
-                    name: 'desk 1',
-                    booked: false,
-                    
-                  },
-                  B: {
-                    name: 'desk 2',
-                    booked: false,
-                    
-                  },
-                  C: {
-                    name: 'desk 3',
-                    booked: false,
-                    
-                  },
-                  D: {
-                    name: 'desk 4',
-                    booked: false,
-                    
-                  },
-                  E: {
-                    name: 'desk 5',
-                    booked: false,
-                    
-                  },
-                  F: {
-                    name: 'desk 6',
-                    booked: false,
-                    
-                  },
-                  G: {
-                    name: 'desk 7',
-                    booked: false,
-                    
-                  },
-                  H: {
-                    name: 'desk 8',
-                    booked: false,
-                    
-                  },
-                  I: {
-                    name: 'desk 9',
-                    booked: false,
-                    
-                  },
-                  J: {
-                    name: 'desk 10',
-                    booked: false,
-                    
-                  },
-                }
-              },
-              C: {
-                name: 'Wednesday',
-                slots: {
-                  A: {
-                    name: 'desk 1',
-                    booked: false,
-                    
-                  },
-                  B: {
-                    name: 'desk 2',
-                    booked: false,
-                    
-                  },
-                  C: {
-                    name: 'desk 3',
-                    booked: false,
-                    
-                  },
-                  D: {
-                    name: 'desk 4',
-                    booked: false,
-                    
-                  },
-                  E: {
-                    name: 'desk 5',
-                    booked: false,
-                    
-                  },
-                  F: {
-                    name: 'desk 6',
-                    booked: false,
-                    
-                  },
-                  G: {
-                    name: 'desk 7',
-                    booked: false,
-                    
-                  },
-                  H: {
-                    name: 'desk 8',
-                    booked: false,
-                    
-                  },
-                  I: {
-                    name: 'desk 9',
-                    booked: false,
-                    
-                  },
-                  J: {
-                    name: 'desk 10',
-                    booked: false,
-                    
-                  },
-                }
-              },
-              D: {
-                name: 'Thursday',
-                slots: {
-                  A: {
-                    name: 'desk 1',
-                    booked: false,
-                    
-                  },
-                  B: {
-                    name: 'desk 2',
-                    booked: false,
-                    
-                  },
-                  C: {
-                    name: 'desk 3',
-                    booked: false,
-                    
-                  },
-                  D: {
-                    name: 'desk 4',
-                    booked: false,
-                    
-                  },
-                  E: {
-                    name: 'desk 5',
-                    booked: false,
-                    
-                  },
-                  F: {
-                    name: 'desk 6',
-                    booked: false,
-                    
-                  },
-                  G: {
-                    name: 'desk 7',
-                    booked: false,
-                    
-                  },
-                  H: {
-                    name: 'desk 8',
-                    booked: false,
-                    
-                  },
-                  I: {
-                    name: 'desk 9',
-                    booked: false,
-                    
-                  },
-                  J: {
-                    name: 'desk 10',
-                    booked: false,
-                    
-                  },
-                }
-              },
-              E: {
-                name: 'Friday',
-                slots: {
-                  A: {
-                    name: 'desk 1',
-                    booked: false,
-                    
-                  },
-                  B: {
-                    name: 'desk 2',
-                    booked: false,
-                    
-                  },
-                  C: {
-                    name: 'desk 3',
-                    booked: false,
-                    
-                  },
-                  D: {
-                    name: 'desk 4',
-                    booked: false,
-                    
-                  },
-                  E: {
-                    name: 'desk 5',
-                    booked: false,
-                    
-                  },
-                  F: {
-                    name: 'desk 6',
-                    booked: false,
-                    
-                  },
-                  G: {
-                    name: 'desk 7',
-                    booked: false,
-                    
-                  },
-                  H: {
-                    name: 'desk 8',
-                    booked: false,
-                    
-                  },
-                  I: {
-                    name: 'desk 9',
-                    booked: false,
-                    
-                  },
-                  J: {
-                    name: 'desk 10',
-                    booked: false,
-                    
-                  },
-                }
+              name: 'Tuesday',
+              slots: {
+                A: {
+                  name: 'desk 1',
+                  booked: false,
+
+                },
+                B: {
+                  name: 'desk 2',
+                  booked: false,
+
+                },
+                C: {
+                  name: 'desk 3',
+                  booked: false,
+
+                },
+                D: {
+                  name: 'desk 4',
+                  booked: false,
+
+                },
+                E: {
+                  name: 'desk 5',
+                  booked: false,
+
+                },
+                F: {
+                  name: 'desk 6',
+                  booked: false,
+
+                },
+                G: {
+                  name: 'desk 7',
+                  booked: false,
+
+                },
+                H: {
+                  name: 'desk 8',
+                  booked: false,
+
+                },
+                I: {
+                  name: 'desk 9',
+                  booked: false,
+
+                },
+                J: {
+                  name: 'desk 10',
+                  booked: false,
+
+                },
               }
+            },
+            C: {
+              name: 'Wednesday',
+              slots: {
+                A: {
+                  name: 'desk 1',
+                  booked: false,
+
+                },
+                B: {
+                  name: 'desk 2',
+                  booked: false,
+
+                },
+                C: {
+                  name: 'desk 3',
+                  booked: false,
+
+                },
+                D: {
+                  name: 'desk 4',
+                  booked: false,
+
+                },
+                E: {
+                  name: 'desk 5',
+                  booked: false,
+
+                },
+                F: {
+                  name: 'desk 6',
+                  booked: false,
+
+                },
+                G: {
+                  name: 'desk 7',
+                  booked: false,
+
+                },
+                H: {
+                  name: 'desk 8',
+                  booked: false,
+
+                },
+                I: {
+                  name: 'desk 9',
+                  booked: false,
+
+                },
+                J: {
+                  name: 'desk 10',
+                  booked: false,
+
+                },
+              }
+            },
+            D: {
+              name: 'Thursday',
+              slots: {
+                A: {
+                  name: 'desk 1',
+                  booked: false,
+
+                },
+                B: {
+                  name: 'desk 2',
+                  booked: false,
+
+                },
+                C: {
+                  name: 'desk 3',
+                  booked: false,
+
+                },
+                D: {
+                  name: 'desk 4',
+                  booked: false,
+
+                },
+                E: {
+                  name: 'desk 5',
+                  booked: false,
+
+                },
+                F: {
+                  name: 'desk 6',
+                  booked: false,
+
+                },
+                G: {
+                  name: 'desk 7',
+                  booked: false,
+
+                },
+                H: {
+                  name: 'desk 8',
+                  booked: false,
+
+                },
+                I: {
+                  name: 'desk 9',
+                  booked: false,
+
+                },
+                J: {
+                  name: 'desk 10',
+                  booked: false,
+
+                },
+              }
+            },
+            E: {
+              name: 'Friday',
+              slots: {
+                A: {
+                  name: 'desk 1',
+                  booked: false,
+
+                },
+                B: {
+                  name: 'desk 2',
+                  booked: false,
+
+                },
+                C: {
+                  name: 'desk 3',
+                  booked: false,
+
+                },
+                D: {
+                  name: 'desk 4',
+                  booked: false,
+
+                },
+                E: {
+                  name: 'desk 5',
+                  booked: false,
+
+                },
+                F: {
+                  name: 'desk 6',
+                  booked: false,
+
+                },
+                G: {
+                  name: 'desk 7',
+                  booked: false,
+
+                },
+                H: {
+                  name: 'desk 8',
+                  booked: false,
+
+                },
+                I: {
+                  name: 'desk 9',
+                  booked: false,
+
+                },
+                J: {
+                  name: 'desk 10',
+                  booked: false,
+
+                },
+              }
+            }
           },
           menlyn: {
             monday: {
@@ -335,52 +363,52 @@ angular.module('scheduleApp', ['firebase'])
                 A: {
                   name: 'desk 1',
                   booked: false,
-                  
+
                 },
                 B: {
                   name: 'desk 2',
                   booked: false,
-                  
+
                 },
                 C: {
                   name: 'desk 3',
                   booked: false,
-                  
+
                 },
                 D: {
                   name: 'desk 4',
                   booked: false,
-                  
+
                 },
                 E: {
                   name: 'desk 5',
                   booked: false,
-                  
+
                 },
                 F: {
                   name: 'desk 6',
                   booked: false,
-                  
+
                 },
                 G: {
                   name: 'desk 7',
                   booked: false,
-                  
+
                 },
                 H: {
                   name: 'desk 8',
                   booked: false,
-                  
+
                 },
                 I: {
                   name: 'desk 9',
                   booked: false,
-                  
+
                 },
                 J: {
                   name: 'desk 10',
                   booked: false,
-                  
+
                 },
               }
             }
@@ -391,4 +419,4 @@ angular.module('scheduleApp', ['firebase'])
 
     };
 
-  });
+  }]);

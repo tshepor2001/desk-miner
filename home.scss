@@ -96,7 +96,6 @@
   @include mdc-elevation(4);
 
   display: block;
-  overflow: auto;
   z-index: 0; // Elevate over the drawer
 }
 .my-card {
@@ -118,8 +117,8 @@
   display: flex;
   height: 664px;
   flex-direction: column;
-  margin: 0 8px;
-  width: 324px;
+  margin: 0 0px;
+  width: 305px;
 }
 .mdc-components .flex {
   flex: 1;
@@ -139,14 +138,13 @@
 }
 .mdc-component__section {
   align-items: center;
-  background-color: #EEEEEE;
+  background-color: black;
   display: flex;
   flex-direction: column;
-  height: 215px;
+  height: 180px;
   position: relative;
   overflow: hidden;
   width: 324px;
-  padding-bottom: 35px
 }
 .mdc-component__section--size-narrow {
   height: 152px;
@@ -430,10 +428,12 @@
   .mdc-component__cards .mdc-card__supporting-text {
     font-size: 12px;
     line-height: 18px;
-    padding-left: 10px;
+    padding-left: 20px;
     padding-right: 11px;
+    font-weight: bolder;
     padding-bottom: 8px;
     text-align: justify;
+    color: #525252;
   }
 
   .mdc-component__cards .demo-card--with-avatar .mdc-card__title,
@@ -716,3 +716,6 @@
     background-color: yellow;
   }
   
+  .mdc-component__h1 {
+    text-align: center;
+  }

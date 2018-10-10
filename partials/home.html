@@ -1,0 +1,56 @@
+<div class="home">
+    <aside class="mdc-drawer shrine-drawer">
+        <div class="mdc-drawer__header">
+            <img class="shrine-logo-drawer" src="assets/desk-miner.png">
+
+        </div>
+        <div class="mdc-drawer__content">
+            <nav class="mdc-list">
+                <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" href="#">
+                    book a desk
+                </a>
+                <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" href="#">
+                    my bookings
+                </a>
+                <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" href="#" ng-click="reset()">
+                    reset
+                </a>
+
+            </nav>
+        </div>
+    </aside>
+    <div class="shrine-body">
+        <div class="mdc-components">
+            <div class="mdc-components__section">
+                <div class="mdc-components__column" ng-repeat="day in days.location['midrand']">
+                    <div class="mdc-component mdc-component__cards">
+                        <h1 class="mdc-component__h1">{{day.name}}</h1>
+                        <div ng-repeat="slot in day.slots">
+                            <div class="mdc-component__section" ng-show="show(slot)">
+                                <div class="mdc-component__containers__primary">
+                                    <div class="mdc-card">
+                                        <section class="mdc-card__header">
+                                            <div ng-if="slot.booked" class="demo-card__avatar_booked"></div>
+                                            <div ng-if="!slot.booked" class="demo-card__avatar_available"></div>
+                                            <p class="mdc-card__subtitle">{{slot.name | uppercase}}</p>
+                                        </section>
+                                        <section class="mdc-card__media">
+                                        </section>
+                                        <section ng-if="slot.booked" class="mdc-card__supporting-text">Booked by
+                                            {{slot.allocation}}</section>
+                                        <section ng-if="!slot.booked" class="mdc-card__supporting-text">Available
+                                            for booking</section>
+                                        <section ng-show="!slot.booked" class="mdc-card__actions"><button type="button"
+                                                class="mdc-button mdc-button--raised mdc--theme-primary" ng-click="book(slot)">book</button></section>
+                                        <section ng-show="slot.booked" class="mdc-card__actions"><button type="button"
+                                                class="mdc-button mdc-button--raised mdc--theme-primary" ng-click="undo(slot)">reset</button></section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
