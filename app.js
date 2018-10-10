@@ -68,7 +68,7 @@ angular.module('scheduleApp', ['firebase', 'ngRoute'])
     }
     $scope.show = function (slot, slots) {
       var bookingFound = _.find(_.flatMap(slots), function (o) {
-        return o.booked && o.allocation == 'tshepo'
+        return o.booked && o.allocation == loginService.user()
       });
       return (bookingFound != undefined && slot.name === bookingFound.name) || ((bookingFound == undefined) && !slot.booked);
     }
